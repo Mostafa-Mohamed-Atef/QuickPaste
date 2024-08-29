@@ -1,44 +1,25 @@
 from pynput import mouse, keyboard
-import ctypes
 import win32gui
-import win32con
-import win32api
-import win32clipboard
 
-# Get the handle of the active window
-hwnd = win32gui.GetForegroundWindow()
-# Send Ctrl+C to the active window (to copy selected text)
+# initializing keyboard controller for pressing ctrlv and ctrlc
+keyboard_controller = keyboard.Controller()
+
+# copying function by pressing ctrlc shortcut
 def send_ctrl_c():
-    # Simulate key down for Ctrl
-    win32api.keybd_event(win32con.VK_CONTROL, 0, 0, 0)
-    # Simulate key press for 'C'
-    win32api.keybd_event(0x43, 0, 0, 0)
-    # Simulate key release for 'C'
-    win32api.keybd_event(0x43, 0, win32con.KEYEVENTF_KEYUP, 0)
-    # Simulate key release for Ctrl
-    win32api.keybd_event(win32con.VK_CONTROL, 0, win32con.KEYEVENTF_KEYUP, 0)
-
-
-# Now, let's read the clipboard
-
-def get_clipboard_text():
     try:
-        win32clipboard.OpenClipboard()
-        data = win32clipboard.GetClipboardData()
+        keyboard_controller.press(keyboard.Key.ctrl)
+        keyboard_controller.press('c')
+        keyboard_controller.release('c')
+        keyboard_controller.release(keyboard.Key.ctrl)
+            
     except Exception as e:
-        print(f"Error accessing clipboard: {e}")
-        data = ""
-    finally:
-        win32clipboard.CloseClipboard()
-    return data
-
-send_ctrl_c()
-get_clipboard_text()
-
-
-# Create a keyboard controller
+        print(f"An error occurred: {e}")
 
 def on_click(x, y, button, pressed):
+    # for copying from any window it recognizes the window that is on the top priority 
+    hwnd = win32gui.GetForegroundWindow()
+    win32gui.SetForegroundWindow(hwnd)
+    send_ctrl_c()
     if button == mouse.Button.middle and pressed:
         try:
             keyboard_controller.press(keyboard.Key.ctrl)
@@ -49,7 +30,6 @@ def on_click(x, y, button, pressed):
         except Exception as e:
             print(f"An error occurred: {e}")
 
-keyboard_controller = keyboard.Controller()
 # Set up the mouse listener
 with mouse.Listener(on_click=on_click) as listener:
     listener.join()
