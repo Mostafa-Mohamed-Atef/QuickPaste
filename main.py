@@ -18,7 +18,8 @@ def pasting():
     try:
         with keyboard_controller.pressed(keyboard.Key.ctrl):
             keyboard_controller.press('v')
-            keyboard_controller.release('v')            
+            keyboard_controller.release('v')   
+            return         
     except Exception as e:
         print(f"An error occurred: {e}")
 
