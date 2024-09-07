@@ -51,14 +51,14 @@ def pasting():
 
 
 def on_click(x, y, button, pressed):
-    if pressed:
+    if not pressed:
         if button == mouse.Button.left: #needs to check double click here 
             hwnd = win32gui.GetForegroundWindow()
             win32gui.SetForegroundWindow(hwnd)
             copying()
             time.sleep(0.1)
-        elif button == mouse.Button.middle: #needs to release after clicking 
-            pasting()
+    elif pressed and button == mouse.Button.middle: #needs to release after clicking 
+        pasting()
     
 
 
