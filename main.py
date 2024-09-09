@@ -49,10 +49,14 @@ def pasting():
     except Exception as e:
         print(f"An error occurred: {e}")
 
+def is_terminal_active():
+    hwnd = win32gui.GetForegroundWindow()
+    window_title = win32gui.GetWindowText(hwnd)
+    return 'cmd.exe' in window_title or 'PowerShell' in window_title or 'Terminal' in window_title
 
 def on_click(x, y, button, pressed):
     if not pressed:
-        if button == mouse.Button.left: #needs to check double click here 
+        if button == mouse.Button.left and not is_terminal_active(): #needs to check double click here 
             hwnd = win32gui.GetForegroundWindow()
             win32gui.SetForegroundWindow(hwnd)
             copying()
