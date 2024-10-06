@@ -1,7 +1,21 @@
-## TO-DO:
-  - copying by only selecting text (DONE)
-  - past by middle button in mouse (DONE)
-  - needs to keep listening after running it only copies instance of running (DONE)
-  - solve race condition problem (DONE)
-  - add release feature for middle click
-  - BUG -> when using terminal when it copies it uses ctrl+c so it stops the terminal (DONE)
+# QuickPaste
+python script that mimic x selection clipboard feature on linux for windows
+
+## Features
+
+- Copies by only selecting text 
+- Pasts by clicking the middle wheel on mouse
+- works also on the terminal
+
+## How it Works
+
+ - if you want both features run main file 
+ - if you want pasting with middle click only feature run paste_only file
+
+## Contributing
+
+Contributions, issues, and feature requests are welcome!
+
+## License
+
+This project is MIT licensed.
