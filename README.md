@@ -3,7 +3,7 @@ python script that mimic x selection clipboard feature on linux for windows
 
 ## Features
 
-- Copies by only by selecting text 
+- Copies by only selecting text 
 - Pasts by clicking the middle wheel on mouse
 - works also on the terminal
 
